@@ -1,47 +1,43 @@
 class RandomizedSet {
 private:
     vector<int> nums;
-    unordered_map<int, int> pos;
+    unordered_map<int, int> mpp; // mpp[val] = vector_index
+
 public:
     RandomizedSet() {
-        
+        // Optional: Seed the random number generator if needed
     }
     
     bool insert(int val) {
-        if(pos.count(val)){
+        if (mpp.count(val)) {
             return false;
         }
-
-        pos[val]= nums.size();
+        // Correct 0-based indexing
+        mpp[val] = nums.size();
         nums.push_back(val);
         return true;
     }
     
     bool remove(int val) {
-         if(!pos.count(val)){
+        if (!mpp.count(val)) {
             return false;
         }
-
-        int idx = pos[val];
+        
+        int idx = mpp[val];
         int last = nums.back();
-
+        
+        // Move the last element to the place of the element to delete
         nums[idx] = last;
-        pos[last] = idx;
-
+        mpp[last] = idx; // Updates map correctly
+        
+        // Remove the last element from both data structures
         nums.pop_back();
-        pos.erase(val);
+        mpp.erase(val);
         return true;
     }
     
     int getRandom() {
+        // Correct C++ rand() usage
         return nums[rand() % nums.size()];
     }
 };
-
-/**
- * Your RandomizedSet object will be instantiated and called as such:
- * RandomizedSet* obj = new RandomizedSet();
- * bool param_1 = obj->insert(val);
- * bool param_2 = obj->remove(val);
- * int param_3 = obj->getRandom();
- */
