@@ -21,14 +21,14 @@ public:
             vector<int>& people = it.second; // Fixed: Removed ()
             
             for(int i = 0; i < people.size(); i += size){ 
-                vector<int> grp; // Fixed: Changed type from vector<vector<int>> to vector<int>
+                vector<int> grp;
                 
-                for(int j = i; j < i + size; j++){ // Fixed: Removed () from size
+                for(int j = i; j < i + size; j++){ 
                     grp.push_back(people[j]); 
                 } 
                 ans.push_back(grp); 
             } 
         } 
-        return ans; // Fixed: Now correctly placed inside the function scope
+        return ans;
     } 
 };
