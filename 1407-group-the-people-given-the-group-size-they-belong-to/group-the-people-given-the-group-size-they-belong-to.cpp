@@ -1,34 +1,25 @@
-#include <vector>
-#include <unordered_map>
+class Solution {
+public:
+    vector<vector<int>> groupThePeople(vector<int>& grp) {
+       unordered_map<int,vector<int>> mpp;
+       for(int i = 0; i < grp.size(); i++){
+        mpp[grp[i]].push_back(i); 
+       }
 
-using namespace std;
+    vector<vector<int>> ans;
 
-class Solution { 
-public: 
-    vector<vector<int>> groupThePeople(vector<int>& nums) { 
-        unordered_map<int, vector<int>> mpp; 
-        
-        // Step 1: Map each group size to the indices of people who want that size
-        for(int i = 0; i < nums.size(); i++){ 
-            mpp[nums[i]].push_back(i); 
-        } 
-        
-        vector<vector<int>> ans; 
-        
-        // Step 2: Divide the people into groups of their required sizes
-        for(auto it : mpp){ 
-            int size = it.first; 
-            vector<int>& people = it.second; // Fixed: Removed ()
-            
-            for(int i = 0; i < people.size(); i += size){ 
-                vector<int> grp;
-                
-                for(int j = i; j < i + size; j++){ 
-                    grp.push_back(people[j]); 
-                } 
-                ans.push_back(grp); 
-            } 
-        } 
-        return ans;
-    } 
+    for(auto it : mpp){
+        int s = it.first;
+        vector<int> temp = it.second;
+        for(int i = 0; i < temp.size(); i = i + s){
+            vector<int> size;
+            for(int j = 0; j < s; j++){
+                size.push_back(temp[j+i]);
+            }
+
+            ans.push_back(size);
+        }
+    }
+return ans;
+    }
 };
