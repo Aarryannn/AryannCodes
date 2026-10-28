@@ -1,18 +1,19 @@
 class Solution {
 public:
     int findSpecialInteger(vector<int>& nums) {
-        unordered_map<int,int> mpp;
-        for(int i : nums){
-            mpp[i]++;
+        int count = 0;
+        int ans = 0;
+        int k = nums.size()/4;
+        int num = nums[0];
+        for(int i = 0; i < nums.size(); i++){
+            if(nums[i] == num){
+                count++;
+                if(count > k) return num;
+            }else{
+                num = nums[i];
+                count = 1;
+            }
         }
-
-        int n = nums.size();
-        int k = n/4;
-
-        for(auto &it : mpp){
-            if(it.second > k) return it.first;
-        }
-
-        return -1;
+        return ans;
     }
 };
