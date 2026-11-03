@@ -5,11 +5,14 @@ public:
 
         vector<int> ans;
 
-        for(int i = 0; i < nums.size(); i++){
-            if(nums[i] == target){
-                ans.push_back(i);
-            }
+       int lb = lower_bound(nums.begin(),nums.end(), target) - nums.begin();
+        if(lb == nums.size() || nums[lb] != target) return {};
+
+        while(lb < nums.size() && nums[lb] == target){
+                ans.push_back(lb);
+                lb++;
         }
+
 
         return ans;
     }
