@@ -1,37 +1,22 @@
 class Solution {
 public:
-    int search(vector<int>& n, int target) {
-        int l=0;
-        int r=n.size()-1;
+    int search(vector<int>& nums, int t) {
+        int l = 0; int r = nums.size()-1;
         while(l<=r){
-            int mid= l+(r-l)/2;
-            if(n[mid]==target){
-                return mid;
-            }
+            int m = l+(r-l)/2;
 
-            if(n[l]<=n[mid]){
-                if(n[mid]==target){
-                return mid;
-            }
+            if(nums[m] == t) return m;
 
-                if(target<n[mid] && target >= n[l]){
-                    r=mid-1;
-                }
-                else{
-                    l=mid+1;
-                }
-            }
-            else{
-                if(n[mid]==target){
-                return mid;
-            }
-
-                if(target>n[mid] && target <= n[r]){
-                    l=mid+1;
-                }
-                else{
-                    r=mid-1;
-                }
+            // if array is normal
+            if(nums[m] >= nums[l]){
+                // now check if target lies left or right to the mid
+                if(t >= nums[l] && t < nums[m]) r = m-1;
+                else l = m+1;
+            }else  // rotated array
+            {
+                // now check if target lies left or right to the mid
+                if(nums[m] < t && t <= nums[r]) l = m+1;
+                else r = m-1;
             }
         }
         return -1;
